@@ -8,23 +8,21 @@ import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 
 /**
  * Top utility bar — contact info + social links.
- * Sits above the Navbar. Hides contact text on small screens.
+ * Sits above the Navbar. Hidden entirely on mobile (moved into
+ * the Footer instead) rather than partially collapsed, so nothing
+ * shifts awkwardly at the sm breakpoint.
  */
 export default function Header() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   return (
     <Box
       sx={{
         bgcolor: "primary.dark",
         color: "primary.contrastText",
-        py: 0.75,
+        py: 0.85,
+        display: { xs: "none", sm: "block" },
       }}
     >
       <Container maxWidth="lg">
@@ -33,18 +31,38 @@ export default function Header() {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Stack direction="row" spacing={2.5} alignItems="center">
-            <Stack direction="row" spacing={0.75} alignItems="center">
+          <Stack direction="row" spacing={3} alignItems="center">
+            <Stack
+              direction="row"
+              spacing={0.75}
+              alignItems="center"
+              component="a"
+              href="tel:+15551234567"
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                opacity: 0.9,
+                "&:hover": { opacity: 1, color: "secondary.main" },
+              }}
+            >
               <PhoneOutlinedIcon sx={{ fontSize: 16 }} />
-              {!isMobile && (
-                <Typography variant="body2">+1 (555) 123-4567</Typography>
-              )}
+              <Typography variant="body2">+1 (555) 123-4567</Typography>
             </Stack>
-            <Stack direction="row" spacing={0.75} alignItems="center">
+            <Stack
+              direction="row"
+              spacing={0.75}
+              alignItems="center"
+              component="a"
+              href="mailto:hello@yourbrand.com"
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                opacity: 0.9,
+                "&:hover": { opacity: 1, color: "secondary.main" },
+              }}
+            >
               <EmailOutlinedIcon sx={{ fontSize: 16 }} />
-              {!isMobile && (
-                <Typography variant="body2">hello@yourbrand.com</Typography>
-              )}
+              <Typography variant="body2">hello@yourbrand.com</Typography>
             </Stack>
           </Stack>
 
@@ -52,7 +70,7 @@ export default function Header() {
             <IconButton
               size="small"
               aria-label="Facebook"
-              sx={{ color: "inherit" }}
+              sx={{ color: "inherit", "&:hover": { color: "secondary.main" } }}
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -62,7 +80,7 @@ export default function Header() {
             <IconButton
               size="small"
               aria-label="Instagram"
-              sx={{ color: "inherit" }}
+              sx={{ color: "inherit", "&:hover": { color: "secondary.main" } }}
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -72,7 +90,7 @@ export default function Header() {
             <IconButton
               size="small"
               aria-label="LinkedIn"
-              sx={{ color: "inherit" }}
+              sx={{ color: "inherit", "&:hover": { color: "secondary.main" } }}
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
